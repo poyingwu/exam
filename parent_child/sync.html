@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sync</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <login :name.sync="userName"></login> {{ userName}}
+      </div>
+
+
+    <script>
+        let Login = Vue.extend({
+            template: `
+                <div class="input-group">
+                <label>姓名:</label>
+                <input v-model="text">
+                </div>
+            `,
+            props: ['name'],
+            data () {
+                return {
+                text: ''
+                }
+            },
+            watch: {
+                text (newVal) {
+                this.$emit('update:name', newVal)
+                }
+            }
+        })
+
+        new Vue({
+            el: '#app',
+            data: {
+                userName: ''
+            },
+            components: {
+                Login
+            }
+        })
+    </script>
+</body>
+</html>

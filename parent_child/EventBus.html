@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventBus</title>
+    <script src="../js/vue.js"></script>
+    
+</head>
+<body>
+    
+    <div id="app">
+        <child></child>
+    </div>
+    
+
+
+    <script>
+        let EventBus = new Vue()
+
+        let Child = Vue.extend({
+            template: '<h2>child</h2>',
+            created () {
+                console.log(EventBus.message)
+                EventBus.$emit('received', 'from child')
+            }
+        })
+
+        new Vue({
+            el: '#app',
+            components: {
+                Child
+            },
+            created () {
+                EventBus.message = 'hello'
+                EventBus.$on('received', function (val) {
+                console.log('received: '+ val)
+                })
+            }
+        })
+    </script>
+</body>
+</html>

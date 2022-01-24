@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emit</title>
+    <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <my-button @greet="sayHi"></my-button>
+        </div>
+
+
+    <script>
+        let MyButton = Vue.extend({
+            template: '<button @click="triggerClick">click</button>',
+            data () {
+                return {
+                    greeting: 'vue.js!'
+                }
+            },
+            methods: {
+                triggerClick () {
+                    this.$emit('greet', this.greeting)
+                }
+            }
+        })
+        new Vue({
+            el: '#app',
+            components: {
+                MyButton
+            },
+            methods: {
+                sayHi (val) {
+                    alert('Hi, ' + val) // 'Hi, vue.js!'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

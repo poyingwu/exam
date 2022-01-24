@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>provide / inject</title>
+    <script src="../js/vue.js"></script>
+    
+</head>
+<body>
+    
+    <div id="app">
+        <son></son>
+    </div>
+    
+
+
+    <script>
+        let Son = Vue.extend({
+            template: '<h2> son </h2>',
+                inject: {
+                    house: {
+                        default: '沒房'
+                    },
+                    car: {
+                        default: '沒車'
+                    },
+                    money: {
+                        default: '￥4500'
+                    }
+                },
+                created () {
+                    console.log(this.house, this.car, this.money)
+                }
+        })
+        new Vue({
+            el: '#app',
+            provide: {
+                house: '房子',
+                car: '車子',
+                money: '￥10000'
+            },
+            components: {
+                Son
+            }
+        })
+    </script>
+</body>
+</html>

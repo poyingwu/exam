@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>attrs/listeners</title>
+    <script src="../js/vue.js"></script>
+    
+</head>
+<body>
+    
+    <div id="app">
+        <child :foo="foo" :bar="bar" @one.native="triggerOne" @two="triggerTwo"></child>
+    </div>
+    
+
+
+    <script>
+        let Child = Vue.extend({
+            template: '<h2>{{ foo }}</h2>',
+            props: ['foo'],
+            created () {
+                console.log(this.$attrs, this.$listeners)
+
+                this.$listeners.two()
+
+            }
+        })
+        new Vue({
+            el: '#app',
+            data: {
+                foo: 'parent foo',
+                bar: 'parent bar'
+            },
+            components: {
+                Child
+            },
+            methods: {
+                triggerOne () {
+                alert('one')
+                },
+                triggerTwo () {
+                alert('two')
+                }
+            }
+        })
+    </script>
+</body>
+</html>
